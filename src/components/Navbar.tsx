@@ -12,7 +12,7 @@ const navLinks = [
   { label: "How It Works", href: "/#how-it-works" },
   { label: "Pricing", href: "/#pricing" },
   { label: "Docs", href: "/docs/getting-started" },
-  { label: "FAQ", href: "/docs/faq" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -23,10 +23,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const isActive = (href: string) => {
     if (href.startsWith("/#")) return false;
-    // "Docs" covers every guide; FAQ has its own header link.
-    if (href.startsWith("/docs/") && href !== "/docs/faq") {
-      return pathname.startsWith("/docs/") && pathname !== "/docs/faq";
-    }
+    // "Docs" stays highlighted on every guide under /docs/.
+    if (href.startsWith("/docs/")) return pathname.startsWith("/docs/");
     return pathname.startsWith(href);
   };
 

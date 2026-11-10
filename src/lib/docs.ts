@@ -50,7 +50,11 @@ export const DOC_PAGES: DocPage[] = [
   },
 ];
 
-export const docHref = (slug: string) => `/docs/${slug}`;
+// Most guides live under /docs/<slug>; these live at the top level instead.
+const TOP_LEVEL_PAGES = new Set(["faq"]);
+
+export const docHref = (slug: string) =>
+  TOP_LEVEL_PAGES.has(slug) ? `/${slug}` : `/docs/${slug}`;
 
 export const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
 /** General enquiries; also where the contact form delivers. */
