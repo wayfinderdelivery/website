@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
 import {
@@ -9,17 +9,20 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 
-const dmSans = DM_Sans({
+// Fonts are self-hosted (variable woff2, latin subset) instead of using
+// next/font/google, so builds never download from Google. That download was
+// flaky and caused "next/font/google queries have exactly one entry" errors.
+const dmSans = localFont({
+  src: "../assets/fonts/dm-sans-latin.woff2",
   variable: "--font-dm",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "400 800",
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const plusJakarta = localFont({
+  src: "../assets/fonts/plus-jakarta-sans-latin.woff2",
   variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "400 600",
   display: "swap",
 });
 
