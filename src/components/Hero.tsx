@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TRIAL_LABEL } from "@/lib/pricing";
 
 const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
 
@@ -107,7 +108,7 @@ export default function Hero() {
                   clipRule="evenodd"
                 />
               </svg>
-              7-day free trial &middot; No credit card required to start
+              {TRIAL_LABEL} &middot; No credit card required to start
             </p>
           </div>
 

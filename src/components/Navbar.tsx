@@ -11,7 +11,7 @@ const navLinks = [
   { label: "Features", href: "/#features" },
   { label: "How It Works", href: "/#how-it-works" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "Docs", href: "/#docs" },
+  { label: "Docs", href: "/docs/getting-started" },
   { label: "FAQ", href: "/docs/faq" },
   { label: "Contact", href: "/contact" },
 ];
@@ -21,8 +21,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = (href: string) =>
-    !href.startsWith("/#") && pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (href.startsWith("/#")) return false;
+    // "Docs" covers every guide; FAQ has its own header link.
+    if (href.startsWith("/docs/") && href !== "/docs/faq") {
+      return pathname.startsWith("/docs/") && pathname !== "/docs/faq";
+    }
+    return pathname.startsWith(href);
+  };
 
   // On the homepage, handle "/#section" links ourselves. Letting Next's
   // router and the browser both handle the same click appended a second

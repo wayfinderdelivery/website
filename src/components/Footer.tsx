@@ -5,10 +5,10 @@ import { SHOPIFY_URL } from "@/lib/docs";
 const footerLinks = [
   { label: "Features", href: "/#features" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "Docs", href: "/#docs" },
+  { label: "Docs", href: "/docs/getting-started" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms", href: "#" },
+  { label: "Terms", href: "/terms" },
 ];
 
 export default function Footer() {

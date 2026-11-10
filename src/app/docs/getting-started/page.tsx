@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PLAN, TRIAL_LABEL } from "@/lib/pricing";
 import { docMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
@@ -35,8 +36,8 @@ export default function GettingStarted() {
           </Step>
           <Step title="Start your free trial">
             <p>
-              Open <UI>Pricing Plans</UI> and start the 7-day free trial of the
-              Basic plan. The storefront map only appears once a plan is
+              Open <UI>Pricing Plans</UI> and start the {TRIAL_LABEL} of the{" "}
+              {PLAN.name} plan. The storefront map only appears once a plan is
               active, so do this before testing on your store.
             </p>
           </Step>

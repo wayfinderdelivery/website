@@ -1,3 +1,4 @@
+import { PLAN, PRICE_LABEL } from "@/lib/pricing";
 const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
 
 const planFeatures = [
@@ -57,18 +58,18 @@ export default function Pricing() {
               {/* Plan name + trial badge */}
               <div className="flex items-center justify-between mb-6">
                 <span className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">
-                  Basic Plan
+                  {PLAN.name} Plan
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  7-Day Free Trial
+                  {PLAN.trialDays}-Day Free Trial
                 </span>
               </div>
 
               {/* Price */}
               <div className="flex items-end gap-1 mb-1">
                 <span className="text-6xl font-extrabold text-slate-900 tracking-tight leading-none">
-                  $15
+                  {PRICE_LABEL}
                 </span>
                 <span className="text-slate-400 font-medium text-lg mb-1">
                   /month

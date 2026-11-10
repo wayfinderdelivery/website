@@ -26,7 +26,7 @@ export function DocArticle({
         ])}
       />
       <nav className="text-sm text-slate-400 mb-6" aria-label="Breadcrumb">
-        <Link href="/#docs" className="hover:text-blue-600 transition-colors">
+        <Link href="/docs/getting-started" className="hover:text-blue-600 transition-colors">
           Docs
         </Link>
         <span className="mx-2">/</span>

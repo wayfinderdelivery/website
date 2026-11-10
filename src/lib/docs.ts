@@ -53,4 +53,7 @@ export const DOC_PAGES: DocPage[] = [
 export const docHref = (slug: string) => `/docs/${slug}`;
 
 export const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
+/** General enquiries; also where the contact form delivers. */
 export const CONTACT_EMAIL = "contact@wayfinder.delivery";
+/** Customer support, privacy, and legal questions. */
+export const SUPPORT_EMAIL = "support@wayfinder.delivery";

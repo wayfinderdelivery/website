@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PLAN, PRICE_LABEL, TRIAL_LABEL } from "@/lib/pricing";
 import { docMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { DocArticle, Callout } from "@/components/docs/Prose";
@@ -36,7 +37,7 @@ const GROUPS: { title: string; items: Faq[] }[] = [
       },
       {
         q: "How much does Wayfinder cost?",
-        a: "The Basic plan is $15 USD per month and includes everything: unlimited customer locations, unlimited delivery zones, per-zone rates, and pickup stores. Every install starts with a 7-day free trial.",
+        a: `The ${PLAN.name} plan is ${PRICE_LABEL} ${PLAN.currency} per month and includes everything: unlimited customer locations, unlimited delivery zones, per-zone rates, and pickup stores. Every install starts with a ${TRIAL_LABEL}.`,
         link: { href: "/#pricing", label: "See pricing" },
       },
       {

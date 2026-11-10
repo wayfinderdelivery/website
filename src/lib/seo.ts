@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { DOC_PAGES, docHref, CONTACT_EMAIL, SHOPIFY_URL } from "@/lib/docs";
+import {
+  DOC_PAGES,
+  docHref,
+  CONTACT_EMAIL,
+  SUPPORT_EMAIL,
+  SHOPIFY_URL,
+} from "@/lib/docs";
+import { PLAN, TRIAL_LABEL } from "@/lib/pricing";
 
 export const BASE_URL = "https://wayfinder.delivery";
 export const SITE_NAME = "Wayfinder";
@@ -37,6 +44,12 @@ export const OG_PAGES: OgPage[] = [
     eyebrow: "Legal",
     title: "Privacy Policy",
     subtitle: "What data Wayfinder collects, and how it's used.",
+  },
+  {
+    slug: "terms",
+    eyebrow: "Legal",
+    title: "Terms of Service",
+    subtitle: "Subscriptions, billing, acceptable use, and liability.",
   },
 ];
 
@@ -115,7 +128,7 @@ export const organizationJsonLd = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
-    email: CONTACT_EMAIL,
+    email: SUPPORT_EMAIL,
     url: `${BASE_URL}/contact`,
   },
   sameAs: [SHOPIFY_URL],
@@ -143,9 +156,9 @@ export const softwareAppJsonLd = {
   publisher: { "@id": `${BASE_URL}/#organization` },
   offers: {
     "@type": "Offer",
-    price: "15.00",
-    priceCurrency: "USD",
-    description: "Basic Plan - 7-day free trial",
+    price: PLAN.price.toFixed(2),
+    priceCurrency: PLAN.currency,
+    description: `${PLAN.name} Plan - ${TRIAL_LABEL}`,
   },
   featureList: [
     "Unlimited customer locations",
