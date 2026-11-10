@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
+import {
+  BASE_URL,
+  pageMetadata,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const dmSans = DM_Sans({
   variable: "--font-dm",
@@ -16,18 +23,26 @@ const plusJakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const BASE_URL = "https://wayfinder.delivery";
+const HOME_TITLE = "Wayfinder - Local Delivery GPS for Shopify";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
+  // Homepage defaults (canonical, Open Graph, Twitter, share image).
+  // Every other page overrides these via pageMetadata()/docMetadata().
+  ...pageMetadata({
+    title: HOME_TITLE,
+    description:
+      "Add an interactive map to your Shopify store, define delivery zones, and capture precise customer GPS locations. Reduce local delivery errors and speed up fulfillment.",
+    path: "/",
+    ogSlug: "home",
+    absoluteTitle: true,
+  }),
+
   title: {
-    default: "Wayfinder - Local Delivery GPS for Shopify",
+    default: HOME_TITLE,
     template: "%s | Wayfinder",
   },
-
-  description:
-    "Add an interactive map to your Shopify store, define delivery zones, and capture precise customer GPS locations. Reduce local delivery errors and speed up fulfillment.",
 
   keywords: [
     "shopify local delivery",
@@ -39,6 +54,7 @@ export const metadata: Metadata = {
     "customer GPS coordinates",
     "shopify map app",
     "local delivery management",
+    "shopify local pickup",
     "wayfinder shopify",
   ],
 
@@ -56,62 +72,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
-  alternates: {
-    canonical: BASE_URL,
-  },
-
-  openGraph: {
-    title: "Wayfinder - Local Delivery GPS for Shopify",
-    description:
-      "Pinpoint local delivery powered by GPS. Define zones, set shipping rates, and capture precise customer coordinates - all in one Shopify app.",
-    url: BASE_URL,
-    siteName: "Wayfinder",
-    type: "website",
-    locale: "en_US",
-    images: [
-      {
-        url: "/screenshots/screenshot1.webp",
-        width: 1456,
-        height: 816,
-        alt: "Wayfinder - Create delivery zones on an interactive map in Shopify",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Wayfinder - Local Delivery GPS for Shopify",
-    description:
-      "Pinpoint local delivery powered by GPS. Define zones, set shipping rates, and capture precise customer coordinates - all in one Shopify app.",
-    images: ["/screenshots/screenshot1.webp"],
-  },
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Wayfinder ‑ Local Delivery GPS",
-  description:
-    "Capture precise local delivery location with an interactive map on your Shopify storefront. Define local delivery zones, set location-based shipping rates, and collect GPS coordinates.",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  url: BASE_URL,
-  offers: {
-    "@type": "Offer",
-    price: "15.00",
-    priceCurrency: "USD",
-    description: "Basic Plan - 7-day free trial",
-  },
-  featureList: [
-    "Unlimited customer locations",
-    "GPS user location detection",
-    "Customizable map styling",
-    "Unlimited delivery zones",
-    "Per-zone shipping rates",
-    "Location boundary enforcement",
-  ],
-  screenshot: `${BASE_URL}/screenshots/screenshot1.webp`,
 };
 
 export default function RootLayout({
@@ -123,9 +83,8 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} ${plusJakarta.variable}`}>
       <body className="antialiased">
         {children}
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
+        <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
       </body>
     </html>
   );

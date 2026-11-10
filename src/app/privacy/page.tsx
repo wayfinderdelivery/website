@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-  description: "Privacy policy for the Wayfinder Shopify app.",
-  alternates: { canonical: "https://wayfinder.delivery/privacy" },
-};
+  description:
+    "Privacy policy for the Wayfinder Shopify app.",
+  path: "/privacy",
+  ogSlug: "privacy",
+});
 
 const LAST_UPDATED = "May 31, 2026";
 const CONTACT_EMAIL = "ryan@deploypulse.io";

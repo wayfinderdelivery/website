@@ -1,11 +1,12 @@
 import Image from "next/image";
 
-const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
+import { SHOPIFY_URL } from "@/lib/docs";
 
 const footerLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Docs", href: "#docs" },
+  { label: "Features", href: "/#features" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Docs", href: "/#docs" },
+  { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms", href: "#" },
 ];
@@ -14,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
-        <div className="grid lg:grid-cols-3 gap-10 items-center">
+        <div className="grid lg:grid-cols-[auto_1fr_auto] gap-10 items-center">
           {/* Left - Logo + copyright */}
           <div>
             <div className="flex items-center gap-2.5 mb-3">
@@ -37,12 +38,12 @@ export default function Footer() {
           </div>
 
           {/* Center - Nav links */}
-          <div className="flex flex-wrap gap-x-6 gap-y-3 lg:justify-center">
+          <div className="flex flex-wrap lg:flex-nowrap gap-x-6 gap-y-3 lg:justify-center">
             {footerLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-slate-400 text-sm hover:text-white transition-colors duration-200"
+                className="whitespace-nowrap text-slate-400 text-sm hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </a>

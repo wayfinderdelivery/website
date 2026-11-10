@@ -3,20 +3,45 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const SHOPIFY_URL = "https://apps.shopify.com/customer-gps-coordinates";
+import { SHOPIFY_URL } from "@/lib/docs";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Docs", href: "#docs" },
+  { label: "Features", href: "/#features" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Docs", href: "/#docs" },
+  { label: "FAQ", href: "/docs/faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href: string) =>
+    !href.startsWith("/#") && pathname.startsWith(href);
+
+  // On the homepage, handle "/#section" links ourselves. Letting Next's
+  // router and the browser both handle the same click appended a second
+  // "#features". Jumps are instant (no smooth scroll animation).
+  // From other pages, Link navigates to the homepage as usual.
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    setMenuOpen(false);
+    if (pathname !== "/" || !href.startsWith("/#")) return;
+    const target = document.getElementById(href.slice(2));
+    if (!target) return;
+    e.preventDefault();
+    if (window.location.hash !== href.slice(1)) {
+      window.history.pushState(null, "", href);
+    }
+    target.scrollIntoView({ behavior: "instant", block: "start" });
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -34,7 +59,20 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 group"
+          onClick={(e) => {
+            // Already on the homepage: Next treats "/#docs" → "/" as a
+            // hash-only change and leaves the hash in the URL, so clear it
+            // ourselves and scroll back to the top.
+            if (pathname !== "/") return;
+            e.preventDefault();
+            setMenuOpen(false);
+            if (window.location.hash) window.history.pushState(null, "", "/");
+            window.scrollTo({ top: 0, behavior: "instant" });
+          }}
+        >
           <Image
             src="/logo.png"
             alt="Wayfinder logo"
@@ -51,13 +89,17 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors duration-200"
+              onClick={(e) => handleSectionClick(e, link.href)}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={`text-sm font-medium hover:text-blue-600 transition-colors duration-200 ${
+                isActive(link.href) ? "text-blue-600" : "text-slate-600"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -116,14 +158,14 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-blue-100 px-6 py-4 flex flex-col gap-3">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors py-1"
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => handleSectionClick(e, link.href)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href={SHOPIFY_URL}

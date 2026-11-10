@@ -6,6 +6,8 @@ import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
 import Docs from "@/components/Docs";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { softwareAppJsonLd } from "@/lib/seo";
 
 export default function Home() {
   return (
@@ -20,6 +22,7 @@ export default function Home() {
         <Docs />
       </main>
       <Footer />
+      <JsonLd data={softwareAppJsonLd} />
     </>
   );
 }

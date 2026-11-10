@@ -32,6 +32,13 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          # Static Forms key for the contact form (Settings → Secrets and
+          # variables → Actions → Secrets). Stored as a secret to keep it out
+          # of logs, but NEXT_PUBLIC_ values are bundled into the site's JS,
+          # so it's still public once deployed. It can only submit to our
+          # form; spam is limited by the honeypot + Static Forms filtering.
+          NEXT_PUBLIC_STATICFORMS_API_KEY: ${{ secrets.STATICFORMS_API_KEY }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
